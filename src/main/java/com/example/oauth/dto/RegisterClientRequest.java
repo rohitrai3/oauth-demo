@@ -17,7 +17,6 @@ public class RegisterClientRequest {
     private String applicationName;
     private String website;
     private String description;
-    private Byte[] logoImage;
     private boolean acceptanceOfLegalTerms;
 
 }

@@ -32,8 +32,6 @@ public class Client {
     @Column
     private String description;
     @Column
-    private String logoImagePath;
-    @Column
     private boolean acceptanceOfLegalTerms;
 
 }
