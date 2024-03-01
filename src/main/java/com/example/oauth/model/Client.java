@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -24,7 +26,7 @@ public class Client {
     @Column
     private String clientSecret;
     @Column
-    private String[] redirectionURIs;
+    private List<String> redirectionURIs;
     @Column
     private String applicationName;
     @Column

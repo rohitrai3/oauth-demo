@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -13,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RegisterClientRequest {
 
-    private String[] redirectionURIs;
+    private List<String> redirectionURIs;
     private String applicationName;
     private String website;
     private String description;
