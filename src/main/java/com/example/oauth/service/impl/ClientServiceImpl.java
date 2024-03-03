@@ -4,7 +4,7 @@ import com.example.oauth.dto.RegisterClientRequest;
 import com.example.oauth.dto.RegisterClientResponse;
 import com.example.oauth.model.Client;
 import com.example.oauth.repository.ClientRepository;
-import com.example.oauth.service.ClientService;
+import com.example.oauth.service.IClientService;
 import com.example.oauth.util.IMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class ClientServiceImpl implements ClientService {
+public class ClientServiceImpl implements IClientService {
 
     @Autowired
     ClientRepository clientRepository;
