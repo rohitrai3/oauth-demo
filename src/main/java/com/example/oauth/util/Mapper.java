@@ -1,6 +1,6 @@
 package com.example.oauth.util;
 
-public interface IMapper<F, T> {
+public interface Mapper<F, T> {
 
     T map(F from);
 

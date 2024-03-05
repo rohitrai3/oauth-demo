@@ -20,5 +20,7 @@ public class RegisterClientRequest {
     private String website;
     private String description;
     private boolean acceptanceOfLegalTerms;
+    private String grantType;
+    private List<String> scopes;
 
 }

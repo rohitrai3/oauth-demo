@@ -1,14 +1,14 @@
 package com.example.oauth.service.impl;
 
 import com.example.oauth.repository.UserRepository;
-import com.example.oauth.service.ICustomUserDetailsService;
+import com.example.oauth.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserDetailsServiceImpl implements ICustomUserDetailsService {
+public class UserDetailsServiceImpl implements CustomUserDetailsService {
 
     @Autowired
     UserRepository userRepository;

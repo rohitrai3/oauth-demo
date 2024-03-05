@@ -7,3 +7,6 @@ spring:
     username:
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+app:
+  signing-key: 3cA3PP8L38Oh8AgMEYnrWvyCUP5y1gOIhsPGcqe6Sj8=
