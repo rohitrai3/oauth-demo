@@ -6,5 +6,6 @@ import org.springframework.web.servlet.view.RedirectView;
 public interface AuthorizeService {
 
     RedirectView authorize(AuthorizeRequest request);
+    RedirectView continueAuthorize(Long id);
 
 }

@@ -1,12 +1,13 @@
 package com.example.oauth.config;
 
-import com.example.oauth.service.CustomUserDetailsService;
+import com.example.oauth.service.ClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,39 +21,37 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     @Autowired
-    CustomUserDetailsService userDetailsServiceImpl;
-    @Autowired
-    CustomUserDetailsService clientDetailsServiceImpl;
-
-    @Autowired
-    public void configure(AuthenticationManagerBuilder builder) {
-        builder.authenticationProvider(authenticationProvider(userDetailsService(userDetailsServiceImpl))).authenticationProvider(authenticationProvider(userDetailsService(clientDetailsServiceImpl)));
-    }
+    ClientDetailsService clientDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/user/signup").permitAll()
-                        .anyRequest().authenticated()).httpBasic(Customizer.withDefaults()).formLogin(Customizer.withDefaults());
+                        .requestMatchers("/client/register", "/authorize/continue/**").permitAll()
+                        .anyRequest().authenticated()).httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
 
-    public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
+    @Bean
+    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,
+                                                       PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
+
         authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder);
 
-        return authenticationProvider;
+        return new ProviderManager(authenticationProvider);
     }
 
-    public UserDetailsService userDetailsService(CustomUserDetailsService customUserDetailsService) {
+    @Bean
+    public UserDetailsService userDetailsService() {
 
-        return customUserDetailsService;
+        return this.clientDetailsService;
     }
 
+    @Bean
     public PasswordEncoder passwordEncoder() {
 
         return new BCryptPasswordEncoder();
