@@ -5,7 +5,7 @@ import com.example.oauth.dto.RegisterClientResponse;
 import com.example.oauth.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/client")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ClientController {
 
     @Autowired
@@ -21,7 +22,6 @@ public class ClientController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('USER')")
     public RegisterClientResponse registerClient(@RequestBody RegisterClientRequest request) {
 
         return clientService.registerClient(request);
